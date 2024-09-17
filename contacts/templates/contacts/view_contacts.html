@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Contacts</h1>
+<form method="GET" action="{% url 'search_contacts' %}">
+    <input type="text" name="q" placeholder="Search...">
+    <button type="submit">Search</button>
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contact in contacts %}
+            <tr>
+                <td><a href="{% url 'edit_contact' contact.pk %}">{{ contact.first_name }}</a></td>
+                <td>{{ contact.email }}</td>
+                <td>{{ contact.phone_number }}</td>
+                <td>
+                    <a href="{% url 'edit_contact' contact.pk %}">Edit</a>
+                    <a href="{% url 'delete_contact' contact.pk %}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'add_contact' %}">Add New Contact</a>
+{% endblock %}
